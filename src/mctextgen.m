@@ -61,7 +61,7 @@ function mctextgen(in, out, len, seed=3);
     printf("Initial state %d, generating %d next states... ", x0, len);
 
     % Use a generator to get a vector of states
-    states = state_gen(P, x0, 10);
+    states = state_gen(P, x0, len);
     printf("Done.\n");
     
     printf("Writing to file %s... ", out);
