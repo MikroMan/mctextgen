@@ -5,7 +5,7 @@
 % tmax - maximum amount of steps
 function states = state_gen(P, x0, tmax);
 
-n = length(P); %save matrix len
+n = length(P); %save matrix length
 
 %initialise state vector
 states = [x0, zeros(1, tmax)];
