@@ -7,6 +7,8 @@
 
 function mctextgen(in, out, len, seed=3);
     
+
+    printf("Reading data from %s:",in);
     % Save RNG state
     
     % Seed the rng
@@ -16,12 +18,17 @@ function mctextgen(in, out, len, seed=3);
     endif
     text = textread(in, "%s"); %read text to cell array
 
+
+
     % Find unique words in text - sorted by ascending alphabetical order
     words = unique(text);
+
+    printf(" %d words in file, %d unique words.\n",rows(text), rows(words));
 
     % Allocate matrix
     P = zeros(rows(words), rows(words));
     
+    printf("Generating P matrix... ");
     %For every word in file...
     for i = 2:rows(text)
         % idx1 = initial state, idx2 = next state
@@ -32,6 +39,9 @@ function mctextgen(in, out, len, seed=3);
         P(idx1,idx2) += 1;
     endfor
 
+
+
+
     % Normalise sums to make matrix P stohastic
     for i = 1:rows(P)
         s = sum(P(i,:));
@@ -41,15 +51,20 @@ function mctextgen(in, out, len, seed=3);
         endif
        endfor
 
-    
+
+    printf("Done.\n");
+
 
     % Randomly generate an initial state
     x0 = randi(rows(words));
 
+    printf("Initial state %d, generating %d next states... ", x0, len);
+
     % Use a generator to get a vector of states
     states = state_gen(P, x0, 10);
-
-
+    printf("Done.\n");
+    
+    printf("Writing to file %s... ", out);
     fid = fopen(out, "w"); % Open file descriptor
 
     for i = 1:columns(states)
@@ -59,9 +74,10 @@ function mctextgen(in, out, len, seed=3);
         fputs(fid, " ");
         if(mod(i, 10) == 0)
             fputs(fid, "\n");
-        endif        
-        
+        endif          
     endfor
+
+    printf("Done.\n");
 
 
     % Close file
@@ -71,6 +87,4 @@ function mctextgen(in, out, len, seed=3);
     if(seed > 0)
          rand("state", rng_state);
     endif
-
-
 endfunction
