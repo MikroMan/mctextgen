@@ -5,15 +5,11 @@
 % out - Path to folder for output files (ex. "./abc", ".")
 
 %usage: textgen("../data/butalci.txt", "../data/butalci/basic");
-
-
 function matrixgen(in, out);
     
     printf("Reading data from %s:",in);
 
     text = textread(in, "%s"); %read text to cell array
-
-
     % Find unique words in text - sorted by ascending alphabetical order
     words = unique(text);
 

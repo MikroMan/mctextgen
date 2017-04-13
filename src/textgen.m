@@ -5,6 +5,10 @@
 % length - how much words to generate
 % seed - seed for random generator, if < 0 do not seed
 
+%usage: textgen("../data/butalci/basic", "./sample.out", 100, -1 );
+
+
+
 function textgen(in, out, len, seed=3);
     
     printf("Reading data from %s:",in);
@@ -17,7 +21,7 @@ function textgen(in, out, len, seed=3);
     endif
     
     tic();
-    P = csvread([in "/matrixdump"])
+    P = csvread([in "/matrixdump"]);
     words = textread([in "/uniques"], "%s");
     toc();
 
