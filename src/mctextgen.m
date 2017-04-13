@@ -62,7 +62,6 @@ function to_file(out, words, states);
 
     printf("Done.\n");
 
-
     % Close file
     fclose(fid);
 endfunction
