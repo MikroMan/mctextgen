@@ -26,7 +26,6 @@ function matrixgen(in, out);
        fputs(fid, words{i});
        fputs(fid, "\n");
     endfor
-
 endfunction
 
 
