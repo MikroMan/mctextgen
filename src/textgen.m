@@ -9,7 +9,7 @@
 
 
 
-function textgen(in, out, len, seed=3);
+function textgen(in, out, len, seed=3, x0=0);
     
     printf("Reading data from %s:",in);
     % Save RNG state
@@ -25,9 +25,16 @@ function textgen(in, out, len, seed=3);
     words = textread([in "/uniques"], "%s");
     toc();
 
-
-    % Randomly generate an initial state
-    x0 = randi(rows(words));
+    if(x0 == 0)
+        % Randomly generate an initial state
+        x0 = randi(rows(words));
+    else
+        for b = 1:rows(words)
+            if(strcmp(x0,words{b}) == 1)
+                x0 = b;
+            endif
+        endfor
+    endif
 
     printf("Initial state %d, generating %d next states... ", x0, len);
 
