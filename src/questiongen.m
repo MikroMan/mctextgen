@@ -4,18 +4,18 @@
 % present in the question
 % in - source text path
 % out - output text path
-%usage: questiongen("../data/butalci.txt", "../data/butalci/basic")
-function questiongen(in, out)
-
+% questionLength - length of the question
+%usage: questiongen("../data/butalci.txt", "../data/butalci/basic", questionLength)
+function questiongen(in, out, questionLength=randi(5)+5)
 questionWords = ["Kako";"Kdaj";"Zakaj";"Kam";"Kdo"];
 
 randomQuestion = questionWords(randi(5),1:5);
 
-textgen("../data/butalci/basic", "./question.out", 10, -1)
+textgen("../data/butalci/basic", "./question.out", questionLength, -1)
 question = textread("./question.out", "%s");
 delete("./question.out");
-fid = fopen("../data/qa.txt", "w");
-fputs(fid, "Vprasanje: ");
+fid = fopen("../data/qa.txt", "a");
+fputs(fid, "\nVprasanje: ");
 fputs(fid, randomQuestion);
 longestWord = question{1};
 for i = 1:rows(question)
