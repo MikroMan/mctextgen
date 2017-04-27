@@ -70,9 +70,6 @@ def parse_input(commands):
     global session_data
     global old_command
 
-
-
-
     if len(commands) < 1:
         print('Invalid command.')
         return True
@@ -91,7 +88,7 @@ def parse_input(commands):
     elif commands[0] == 'exit':
         return True
     elif commands[0] == 'ls':
-        print(os.listdir())
+        print(os.listdir('.'))
     elif commands[0] == 'rm':
         os.remove(commands[1])
     elif commands[0] == 'clean':
@@ -99,7 +96,7 @@ def parse_input(commands):
     elif commands[0] == 'show':
         print_stats()
     elif commands[0] == 'save':
-        if len(commands < 2):
+        if len(commands) < 2:
             print('No filename argument provided')
         else:
             if len(old_gen) > 0:
