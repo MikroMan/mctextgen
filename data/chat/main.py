@@ -2,6 +2,7 @@ import pickle
 import sys
 import markov
 import argparse
+import interactive
 
 parser = argparse.ArgumentParser(description='Markov Chain Text Generator script')
 #read/gen/build -if ../butalci.txt -of ./sample.out -df ./butalci.dump -rf ./butalci.dump -l 80
@@ -49,9 +50,15 @@ def dump_data(args):
     text = markov.load_text(args.in_file)
     markov_data = markov.generate_matrix(text)
     print('Dumping processing data to Pickle dump: {0}'.format(args.write_dump))
-    pickle.dump(markov_data, open(args.write_dump, 'wb'))
+    pickle.dump(markov_data, open(args.write_dump, 'wb'), protocol=4)
+
+
+
+
 
 def main(args):
+    if args.action == 'interactive':
+        interactive.interactive_session(args)
     if args.action == 'gen':
         build_generate(args)
     elif args.action == 'read':
