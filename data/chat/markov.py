@@ -34,7 +34,7 @@ def generate_matrix(text):
 
     wds = {}
     for word in uniques:
-        wds['word'] = uniques.index(word)
+        wds[word] = uniques.index(word)
         bar.next()
 
     for word in text[1:]:
