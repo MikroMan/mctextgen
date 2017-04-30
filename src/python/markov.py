@@ -45,7 +45,7 @@ def generate_matrix(text):
     for i in range(0, num_words):
         s = sum(P[i,])
         if s != 0.0:
-            P[i,] /= sum(P[i,])
+            P[i,] /= s
         bar.next()
     bar.finish()
 

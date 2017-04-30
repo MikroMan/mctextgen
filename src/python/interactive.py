@@ -78,7 +78,7 @@ def run_chat(commands):
 
         msg =  markov.gen_seeded(session_data['markov_data'],randint(5,15), x0)
 
-        x0 = msg[randint(0, len(msg)-1)]
+        x0 = msg[randint(0, len(msg)-2)]
 
         msgs.append(msg)
         len_msgs -=1
