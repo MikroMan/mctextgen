@@ -25,7 +25,7 @@ def load_data(commands):
 def print_stdout(states):
     buf = ""
     words = session_data['markov_data']['words']
-    i=1
+    i = 1
     for state in states:
         if words[state] not in markov.SPECIAL and len(buf) + len(words[state]) > 80:
             print(buf.strip())
@@ -70,23 +70,19 @@ def run_chat(commands):
     len_msgs = int(commands[1])
     msgs = []
     len_words = len(session_data['markov_data']['words'])
-    x0 = randint(0, len_words-1)
-
-
+    x0 = randint(0, len_words - 1)
 
     while len_msgs > 0:
+        msg = markov.gen_seeded(session_data['markov_data'], randint(5, 15), x0)
 
-        msg =  markov.gen_seeded(session_data['markov_data'],randint(5,15), x0)
-
-        x0 = msg[randint(0, len(msg)-2)]
+        x0 = msg[randint(0, len(msg) - 2)]
 
         msgs.append(msg)
-        len_msgs -=1
+        len_msgs -= 1
     print('Generated chat log:')
     for i in range(0, len(msgs)):
-        print('[User{0}]  : '.format(i%2), end='')
+        print('[User{0}]  : '.format(i % 2), end='')
         print_stdout(msgs[i])
-
 
 
 def parse_input(commands):

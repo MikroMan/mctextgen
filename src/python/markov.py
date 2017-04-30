@@ -81,8 +81,10 @@ def generate_text(data, length=50):
 
     return get_states(x0, data, length, words)
 
+
 def gen_seeded(data, length, x0):
     return get_states(x0, data, length, data['words'])
+
 
 def get_states(x0, data, length, words):
     states = [x0]
