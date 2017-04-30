@@ -60,7 +60,7 @@ def dump_data(args):
 
 def main(args):
     if args.action == 'interactive':
-        interactive.interactive_session(args)
+        interactive.interactive_session()
     if args.action == 'gen':
         build_generate(args)
     elif args.action == 'read':

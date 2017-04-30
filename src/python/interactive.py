@@ -1,5 +1,5 @@
 import pickle
-
+from random import randint
 import markov
 import os
 
@@ -25,6 +25,7 @@ def load_data(commands):
 def print_stdout(states):
     buf = ""
     words = session_data['markov_data']['words']
+    i=1
     for state in states:
         if words[state] not in markov.SPECIAL and len(buf) + len(words[state]) > 80:
             print(buf.strip())
@@ -65,6 +66,29 @@ def print_stats():
             print('Text loaded: NO (run \'load dump <file>\' or \'read <file>\')')
 
 
+def run_chat(commands):
+    len_msgs = int(commands[1])
+    msgs = []
+    len_words = len(session_data['markov_data']['words'])
+    x0 = randint(0, len_words-1)
+
+
+
+    while len_msgs > 0:
+
+        msg =  markov.gen_seeded(session_data['markov_data'],randint(5,15), x0)
+
+        x0 = msg[randint(0, len(msg)-1)]
+
+        msgs.append(msg)
+        len_msgs -=1
+    print('Generated chat log:')
+    for i in range(0, len(msgs)):
+        print('[User{0}]  : '.format(i%2), end='')
+        print_stdout(msgs[i])
+
+
+
 def parse_input(commands):
     global session_data
     global old_command
@@ -90,6 +114,8 @@ def parse_input(commands):
         print(os.listdir('.'))
     elif commands[0] == 'rm':
         os.remove(commands[1])
+    elif commands[0] == 'chat':
+        run_chat(commands)
     elif commands[0] == 'clean':
         session_data = {}
     elif commands[0] == 'show':

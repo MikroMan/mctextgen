@@ -79,6 +79,12 @@ def generate_text(data, length=50):
     while words[x0].islower():
         x0 = randint(0, num_words - 1)
 
+    return get_states(x0, data, length, words)
+
+def gen_seeded(data, length, x0):
+    return get_states(x0, data, length, data['words'])
+
+def get_states(x0, data, length, words):
     states = [x0]
     if 'sum' not in data:
         data['sum'] = np.cumsum(data['trans_matrix'], axis=1)
